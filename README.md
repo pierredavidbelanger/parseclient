@@ -1,6 +1,6 @@
 # ParseClient
 
-A [Parse.com](Parse.com) Java Client.
+A [Parse.com](https://www.parse.com) Java Client.
 
 Ths is a non-official [Parse.com](https://www.parse.com) library that wrap JAX-RS to offer a high level client to [Parse.com REST API](https://www.parse.com/docs/rest/).
 
