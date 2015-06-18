@@ -16,9 +16,7 @@ If you are looking for something easier to use, have a look at the excelent also
 
 ## Getting Started
 
-First include this library:
-
-*NOTE: I did not release to Maven Central yet. You will need to clone the project, and `mvn install` it locally.*
+First include this library into the `<dependencies/>` section of you pom.xml:
 
 ```xml
 <dependency>
@@ -29,11 +27,31 @@ First include this library:
 </dependency>
 ```
 
+*NOTE: I did not release to Maven Central yet. This is a SNAPSHOT release. So you will need to also include the Sonatype snapshots repository into the `<repositories/>` section:*
+
+```xml
+<repository>
+    <id>snapshots-repo</id>
+    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    <releases>
+        <enabled>false</enabled>
+    </releases>
+    <snapshots>
+        <enabled>true</enabled>
+    </snapshots>
+</repository>
+```
+
+
 ### Dependencies
 
 This library as no mandatory dependency as it is based on JAX-RS. But to be able to use it, you will need at least a JAX-RS implementation that have support for JSON.
 
 The easiest way to get started is to include [Jersey](https://jersey.java.net/) client library, with its [Jackson](http://wiki.fasterxml.com/JacksonHome) media plugin, because doing so will enable you to use the out-of-the-box zero configuration utility class to get started quickly.
+
+Those are `runtime` only dependencies, you will not need to interact with them (as long as you are OK with the default configurations).
+
+Again in the `<dependencies/>` section of your pom.xml:
 
 ```xml
 <dependency>
