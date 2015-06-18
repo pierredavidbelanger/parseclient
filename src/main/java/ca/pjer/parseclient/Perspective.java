@@ -35,4 +35,6 @@ public interface Perspective {
 
 	<T extends Session> SessionResources<T> withSessions(Class<T> type);
 
+	CloudCode withCloudCode();
+
 }

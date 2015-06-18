@@ -22,7 +22,7 @@ First include this library into the `<dependencies/>` section of you pom.xml:
 <dependency>
     <groupId>ca.pjer</groupId>
     <artifactId>parseclient</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.2.0-SNAPSHOT</version>
     <scope>compile</scope>
 </dependency>
 ```
@@ -147,6 +147,6 @@ public class ParseClientTest {
 
 ## Going further
 
-There is more than that. This library already supports aynchrounous operations, replayable operations, signup, login, users and sessions management, ACL, batch operations, custom object mapping.
+There is more than that. This library already supports aynchrounous operations, replayable operations, CloudCode Functions, signup, login, users and sessions management, ACL, batch operations, custom object mapping.
 
 Expect more documentation to come.

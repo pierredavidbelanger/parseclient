@@ -120,4 +120,8 @@ class PerspectiveImpl implements Perspective {
 	public <T extends Session> SessionResources<T> withSessions(Class<T> type) {
 		return new SessionResourcesImpl<T>(this, type);
 	}
+
+	public CloudCode withCloudCode() {
+		return new CloudCodeImpl(this);
+	}
 }
