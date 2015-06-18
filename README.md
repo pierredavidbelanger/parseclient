@@ -25,6 +25,7 @@ First include this library:
     <groupId>ca.pjer</groupId>
     <artifactId>parseclient</artifactId>
     <version>0.1.0-SNAPSHOT</version>
+    <scope>compile</scope>
 </dependency>
 ```
 
@@ -39,12 +40,14 @@ The easiest way to get started is to include [Jersey](https://jersey.java.net/) 
     <groupId>org.glassfish.jersey.core</groupId>
     <artifactId>jersey-client</artifactId>
     <version>2.18</version>
+    <scope>runtime</scope>
 </dependency>
 
 <dependency>
     <groupId>org.glassfish.jersey.media</groupId>
     <artifactId>jersey-media-json-jackson</artifactId>
     <version>2.18</version>
+    <scope>runtime</scope>
 </dependency>
 ```
 
