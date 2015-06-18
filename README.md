@@ -2,13 +2,13 @@
 
 A [Parse.com](Parse.com) Java Client.
 
-Ths is a non-official [Parse.com](Parse.com) library that wrap JAX-RS to offer a high level client to [Parse.com REST API](https://www.parse.com/docs/rest/).
+Ths is a non-official [Parse.com](https://www.parse.com) library that wrap JAX-RS to offer a high level client to [Parse.com REST API](https://www.parse.com/docs/rest/).
 
 This library should be considered beta, and you should expect its API to change until I bump the major version to `1`. After that, I will try to follow [Semantic Versioning](http://semver.org/).
 
 ## Summary 
 
-This library offer a flexible application perspective system that let one interact with [Parse.com](Parse.com) anonymously, as a logged in user or as the master, in one or more application, concurrently in the same code. So this library is NOT a clone of the [Parse.com Android client](https://www.parse.com/docs/android/).
+This library offer a flexible application perspective system that let one interact with [Parse.com](https://www.parse.com) anonymously, as a logged in user or as the master, in one or more application, concurrently in the same code. So this library is NOT a clone of the [Parse.com Android client](https://www.parse.com/docs/android/).
 
 This flexibility comes at the expense of a more complex way to interact with the library (ie: no magic static singleton everywhere).
 
@@ -84,7 +84,7 @@ Create a ParseClient that wrap this JAX-RS `client`:
 ParseClient parseClient = ParseClient.create(client);
 ```
 
-From the `parseClient`, create an object to access an application by providing your `Application ID` and `REST API Key` (in the Settings -> Keys section of your [Parse.com](Parse.com) dashboard):
+From the `parseClient`, create an object to access an application by providing your `Application ID` and `REST API Key` (in the Settings -> Keys section of your [Parse.com](https://www.parse.com) dashboard):
  
 ```java
 Application application = parseClient.application("...").usingRestApiKey("...");
