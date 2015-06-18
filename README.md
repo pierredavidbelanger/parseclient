@@ -45,7 +45,7 @@ First include this library into the `<dependencies/>` section of you pom.xml:
 
 ### Dependencies
 
-This library as no mandatory dependency as it is based on JAX-RS. But to be able to use it, you will need at least a JAX-RS implementation that have support for JSON.
+This library has no mandatory dependency as it is based on JAX-RS. But to be able to use it, you will need at least a JAX-RS implementation that have support for JSON.
 
 The easiest way to get started is to include [Jersey](https://jersey.java.net/) client library, with its [Jackson](http://wiki.fasterxml.com/JacksonHome) media plugin, because doing so will enable you to use the out-of-the-box zero configuration utility class to get started quickly.
 
