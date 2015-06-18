@@ -63,26 +63,26 @@ Create a ParseClient that wrap this JAX-RS `client`:
 ParseClient parseClient = ParseClient.create(client);
 ```
 
-From the `parseClient`, create an application object and provide your `Application ID` and `REST API Key` (in the Settings -> Keys section of your [Parse.com](Parse.com) dashboard):
+From the `parseClient`, create an object to access an application by providing your `Application ID` and `REST API Key` (in the Settings -> Keys section of your [Parse.com](Parse.com) dashboard):
  
 ```java
 Application application = parseClient.application("...").usingRestApiKey("...");
 ```
 
-From this `application`, create an anonymous perspective (ie: see and operate on your data only in a way an anonymous user can do):
+From this `application`, get an anonymous perspective (ie: see and operate on your data only in a way an anonymous user can do):
 
 ```java
 Perspective anonymousPerspective = application.asAnonymous();
 ```
 
-From this `anonymousPerspective`, get an `ObjectResources`, a kind of DAO to operate on the `GameScore` class:
+From this `anonymousPerspective`, get an `ObjectResources`, a kind of DAO, to operate on the `GameScore` class:
 
 ```java
 ObjectResources<ParseObject> gameScores = anonymousPerspective.withObjects("GameScore");
 
 ```
 
-From the `gameScores` DAO, perform a query operation to fetch all objects and print their IDs:
+From the `gameScores` DAO, perform a query operation to find all objects and print their IDs:
 
 ```java
 Iterable<ParseObject> parseObjects = gameScores.basicQuery().find();
@@ -91,7 +91,7 @@ for (ParseObject parseObject : parseObjects)
 
 ```
 
-Here the complete example:
+Here the completed example:
 
 ```java
 import ca.pjer.parseclient.*;
@@ -126,6 +126,6 @@ public class ParseClientTest {
 
 ## Going further
 
-There is more than that. This library already supports aynchrounous operations, replayable operation, signup, login, users and sessions management, batch operations, custom object mapping.
+There is more than that. This library already supports aynchrounous operations, replayable operations, signup, login, users and sessions management, ACL, batch operations, custom object mapping.
 
 Expect more documentation to come.
