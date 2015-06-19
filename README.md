@@ -45,7 +45,7 @@ First include this library into the `<dependencies/>` section of you pom.xml:
 
 ### Dependencies
 
-This library has no mandatory dependency as it is based on JAX-RS. But to be able to use it, you will need at least a JAX-RS implementation that have support for JSON.
+This library has no mandatory dependency (except javax.ws.rs-api) as it is based on JAX-RS. But to be able to use it, you will need at least a JAX-RS implementation that have support for JSON.
 
 The easiest way to get started is to include [Jersey](https://jersey.java.net/) client library, with its [Jackson](http://wiki.fasterxml.com/JacksonHome) media plugin, because doing so will enable you to use the out-of-the-box zero configuration utility class to get started quickly.
 
@@ -54,6 +54,12 @@ Those are `runtime` only dependencies, you will not need to interact with them (
 Again in the `<dependencies/>` section of your pom.xml:
 
 ```xml
+<dependency>
+    <groupId>javax.ws.rs</groupId>
+    <artifactId>javax.ws.rs-api</artifactId>
+    <version>2.0.1</version>
+</dependency>
+
 <dependency>
     <groupId>org.glassfish.jersey.core</groupId>
     <artifactId>jersey-client</artifactId>
