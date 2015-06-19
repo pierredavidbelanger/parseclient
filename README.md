@@ -22,8 +22,7 @@ First include this library into the `<dependencies/>` section of you pom.xml:
 <dependency>
     <groupId>ca.pjer</groupId>
     <artifactId>parseclient</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
-    <scope>compile</scope>
+    <version>0.3.0-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -42,14 +41,11 @@ First include this library into the `<dependencies/>` section of you pom.xml:
 </repository>
 ```
 
-
 ### Dependencies
 
-This library has no mandatory dependency (except javax.ws.rs-api) as it is based on JAX-RS. But to be able to use it, you will need at least a JAX-RS implementation that have support for JSON.
+This library do not requires a specific JAX-RS implementation. But to be able to use it, you will need at least a JAX-RS implementation that have support for JSON.
 
 The easiest way to get started is to include [Jersey](https://jersey.java.net/) client library, with its [Jackson](http://wiki.fasterxml.com/JacksonHome) media plugin, because doing so will enable you to use the out-of-the-box zero configuration utility class to get started quickly.
-
-Those are `runtime` only dependencies, you will not need to interact with them (as long as you are OK with the default configurations).
 
 Again in the `<dependencies/>` section of your pom.xml:
 
@@ -123,15 +119,13 @@ Here the completed example:
 ```java
 import ca.pjer.parseclient.*;
 import ca.pjer.parseclient.support.SimpleJerseyWithJacksonConfiguration;
-import org.junit.Test;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 
-public class ParseClientTest {
+public class Main {
 
-	@Test
-	public void getStartedTest() {
+	public static void main(String[] args) {
 
 		Client client = ClientBuilder.newClient(new SimpleJerseyWithJacksonConfiguration());
 
