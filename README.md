@@ -108,7 +108,7 @@ ObjectResources<ParseObject> gameScores = anonymousPerspective.withObjects("Game
 From the `gameScores` DAO, perform a query operation to find all objects and print their IDs:
 
 ```java
-Iterable<ParseObject> parseObjects = gameScores.basicQuery().find();
+Iterable<ParseObject> parseObjects = gameScores.query().find();
 for (ParseObject parseObject : parseObjects)
     System.out.println(parseObject.getObjectId());
 
@@ -137,7 +137,7 @@ public class Main {
 
 		ObjectResources<ParseObject> gameScores = anonymousPerspective.withObjects("GameScore");
 
-		Iterable<ParseObject> parseObjects = gameScores.basicQuery().find();
+		Iterable<ParseObject> parseObjects = gameScores.query().find();
 		for (ParseObject parseObject : parseObjects)
 			System.out.println(parseObject.getObjectId());
 	}
