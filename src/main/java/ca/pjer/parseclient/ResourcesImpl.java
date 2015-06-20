@@ -115,8 +115,8 @@ abstract class ResourcesImpl<T extends ParseObject> implements Resources<T> {
 							body));
 	}
 
-	public BasicQuery<T> basicQuery() {
-		return new BasicQueryImpl<T>(this);
+	public Query<T> query() {
+		return new QueryImpl<T>(this);
 	}
 
 	protected String getBatchPath() {

@@ -34,6 +34,6 @@ public interface Resources<T extends ParseObject> {
 
 	void delete(Batch batch, String objectId);
 
-	BasicQuery<T> basicQuery();
+	Query<T> query();
 
 }

@@ -3,57 +3,78 @@ package ca.pjer.parseclient;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
 
-class BasicQueryImpl<T extends ParseObject> implements BasicQuery<T> {
+class QueryImpl<T extends ParseObject> implements Query<T> {
 
 	private final ResourcesImpl<T> resources;
 	private final MultivaluedMap<String, String> parameters;
 
-	BasicQueryImpl(ResourcesImpl<T> resources) {
+	QueryImpl(ResourcesImpl<T> resources) {
 		this.resources = resources;
 		parameters = new MultivaluedHashMap<String, String>(10);
 	}
 
-	BasicQueryImpl(BasicQueryImpl<T> that) {
+	QueryImpl(QueryImpl<T> that) {
 		this.resources = that.resources;
 		this.parameters = new MultivaluedHashMap<String, String>(that.parameters);
 	}
 
-	public BasicQuery<T> select(String... keys) {
+	public Query<T> select(String... keys) {
 		return addParameters("keys", keys);
 	}
 
-	public BasicQuery<T> where(String where) {
+	public Query<T> where(String where) {
 		return setParameters("where", where);
 	}
 
-	public BasicQuery<T> ascending(String ascending) {
+	public Query<T> constrain(QueryConstraint queryConstraint) {
+		if (queryConstraint instanceof QueryConstraintImpl) {
+			QueryConstraintImpl impl = (QueryConstraintImpl) queryConstraint;
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			try {
+				resources.getPerspective().getApplication().getParseClient().getMessageBodyWriter()
+						.writeTo(impl.getWhere(), Map.class, null, null,
+								MediaType.APPLICATION_JSON_TYPE, null, out);
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+			String where = new String(out.toByteArray(), Charset.forName("UTF-8"));
+			return where(where);
+		}
+		return this;
+	}
+
+	public Query<T> ascending(String ascending) {
 		return addParameters("order", ascending);
 	}
 
-	public BasicQuery<T> descending(String descending) {
+	public Query<T> descending(String descending) {
 		return addParameters("order", "-" + descending);
 	}
 
-	public BasicQuery<T> limit(int limit) {
+	public Query<T> limit(int limit) {
 		return setParameters("limit", String.valueOf(limit));
 	}
 
-	public BasicQuery<T> skip(int skip) {
+	public Query<T> skip(int skip) {
 		return setParameters("skip", String.valueOf(skip));
 	}
 
-	public BasicQuery<T> count() {
+	public Query<T> count() {
 		return setParameters("count", "1");
 	}
 
@@ -70,14 +91,14 @@ class BasicQueryImpl<T extends ParseObject> implements BasicQuery<T> {
 				OperationImpl.Method.GET, null, getQueryResultsType());
 	}
 
-	protected BasicQuery<T> addParameters(String name, String... values) {
-		BasicQueryImpl<T> clone = new BasicQueryImpl<T>(this);
+	protected Query<T> addParameters(String name, String... values) {
+		QueryImpl<T> clone = new QueryImpl<T>(this);
 		clone.parameters.addAll(name, Arrays.asList(values));
 		return clone;
 	}
 
-	protected BasicQuery<T> setParameters(String name, String... values) {
-		BasicQueryImpl<T> clone = new BasicQueryImpl<T>(this);
+	protected Query<T> setParameters(String name, String... values) {
+		QueryImpl<T> clone = new QueryImpl<T>(this);
 		clone.parameters.put(name, Arrays.asList(values));
 		return clone;
 	}

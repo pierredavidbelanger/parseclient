@@ -2,26 +2,28 @@ package ca.pjer.parseclient.support.jersey;
 
 import ca.pjer.parseclient.ParseError;
 import ca.pjer.parseclient.ParseException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import ca.pjer.parseclient.support.Utils;
 
+import javax.ws.rs.client.ClientRequestContext;
 import javax.ws.rs.client.ClientResponseContext;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.ext.MessageBodyReader;
 import java.io.IOException;
 
 public class ParseClientWithErrorResponseFilter extends ParseClientResponseFilter {
 
-	private final ObjectMapper objectMapper;
-
-	public ParseClientWithErrorResponseFilter(ObjectMapper objectMapper) {
-		this.objectMapper = objectMapper;
-	}
-
 	@Override
-	public void unsuccessful(ClientResponseContext clientResponseContext) {
+	public void unsuccessful(ClientRequestContext clientRequestContext, ClientResponseContext clientResponseContext) {
 		ParseError parseError = null;
 		try {
-			// TODO: Would be great to deserialize the response entity in an instance of ParseError on a non 2xx response without introducing a dependency with Jackson
-			parseError = objectMapper.readValue(clientResponseContext.getEntityStream(), ParseError.class);
+			MessageBodyReader<ParseError> messageBodyReader = Utils.findMessageBodyReader(
+					clientRequestContext.getConfiguration(),
+					MediaType.APPLICATION_JSON_TYPE);
+			parseError = messageBodyReader.readFrom(ParseError.class,
+					ParseError.class, null, MediaType.APPLICATION_JSON_TYPE,
+					null, clientResponseContext.getEntityStream());
 		} catch (IOException ignored) {
+			// should we log this one ?
 		}
 		throw new ParseException(clientResponseContext.getStatusInfo().getReasonPhrase(), parseError);
 	}

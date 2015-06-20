@@ -28,7 +28,7 @@ public class SimpleJerseyWithJacksonConfiguration extends ClientConfig {
 
 		property(ClientProperties.ASYNC_THREADPOOL_SIZE, 1);
 
-		register(new ParseClientWithErrorResponseFilter(objectMapper));
+		register(new ParseClientWithErrorResponseFilter());
 
 		Logger logger = Logger.getLogger("ca.pjer.parseclient");
 		if (logger.isLoggable(Level.INFO))

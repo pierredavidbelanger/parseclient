@@ -33,6 +33,8 @@ class QueryResultsImpl<T extends ParseObject> implements QueryResults<T> {
 	}
 
 	public T first() {
-		return iterator().next();
+		Iterator<T> iterator = iterator();
+		if (!iterator.hasNext()) return null;
+		return iterator.next();
 	}
 }

@@ -12,10 +12,10 @@ public class ParseClientResponseFilter implements ClientResponseFilter {
 
 	public void filter(ClientRequestContext clientRequestContext, ClientResponseContext clientResponseContext) throws IOException {
 		if (clientResponseContext.getStatusInfo().getFamily() != Response.Status.Family.SUCCESSFUL)
-			unsuccessful(clientResponseContext);
+			unsuccessful(clientRequestContext, clientResponseContext);
 	}
 
-	public void unsuccessful(ClientResponseContext clientResponseContext) {
+	public void unsuccessful(ClientRequestContext clientRequestContext, ClientResponseContext clientResponseContext) {
 		throw new ParseException(clientResponseContext.getStatusInfo().getReasonPhrase(), null);
 	}
 }
