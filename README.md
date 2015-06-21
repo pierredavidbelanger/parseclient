@@ -73,10 +73,10 @@ Again in the `<dependencies/>` section of your pom.xml:
 
 ### First steps
 
-Create a JAX-RS client, fully configured with the conveniently included `SimpleJerseyWithJacksonConfiguration` class:
+Create a JAX-RS client, fully configured with the conveniently included `SimpleConfigurations` class:
 
 ```java
-Client client = ClientBuilder.newClient(new SimpleJerseyWithJacksonConfiguration());
+Client client = ClientBuilder.newClient(SimpleConfigurations.jerseyWithJackson());
 
 ```
 
@@ -118,7 +118,7 @@ Here the completed example:
 
 ```java
 import ca.pjer.parseclient.*;
-import ca.pjer.parseclient.support.SimpleJerseyWithJacksonConfiguration;
+import ca.pjer.parseclient.support.SimpleConfigurations;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -127,7 +127,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		Client client = ClientBuilder.newClient(new SimpleJerseyWithJacksonConfiguration());
+		Client client = ClientBuilder.newClient(SimpleConfigurations.jerseyWithJackson());
 
 		ParseClient parseClient = ParseClient.create(client);
 

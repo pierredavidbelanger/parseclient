@@ -10,28 +10,33 @@ import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.ClientProperties;
 import org.glassfish.jersey.filter.LoggingFilter;
 
+import javax.ws.rs.core.Configuration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SimpleJerseyWithJacksonConfiguration extends ClientConfig {
+public class SimpleConfigurations {
 
-	public SimpleJerseyWithJacksonConfiguration() {
-		this(new ObjectMapper());
+	public static Configuration jerseyWithJackson() {
+		return jerseyWithJackson(new ObjectMapper());
 	}
 
-	public SimpleJerseyWithJacksonConfiguration(ObjectMapper objectMapper) {
+	public static Configuration jerseyWithJackson(ObjectMapper objectMapper) {
+
+		ClientConfig clientConfig = new ClientConfig();
 
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 		objectMapper.registerModule(new ParseClientModule());
-		register(new JacksonJaxbJsonProvider(objectMapper, null));
+		clientConfig.register(new JacksonJaxbJsonProvider(objectMapper, null));
 
-		property(ClientProperties.ASYNC_THREADPOOL_SIZE, 1);
+		clientConfig.property(ClientProperties.ASYNC_THREADPOOL_SIZE, 1);
 
-		register(new ParseClientWithErrorResponseFilter());
+		clientConfig.register(new ParseClientWithErrorResponseFilter());
 
 		Logger logger = Logger.getLogger("ca.pjer.parseclient");
 		if (logger.isLoggable(Level.INFO))
-			register(new LoggingFilter(logger, true));
+			clientConfig.register(new LoggingFilter(logger, true));
+
+		return clientConfig;
 	}
 }
