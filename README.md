@@ -22,7 +22,7 @@ First include this library into the `<dependencies/>` section of you pom.xml:
 <dependency>
     <groupId>ca.pjer</groupId>
     <artifactId>parseclient</artifactId>
-    <version>0.5.0-SNAPSHOT</version>
+    <version>0.6.0-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -142,7 +142,6 @@ public class Main {
 			System.out.println(parseObject.getObjectId());
 	}
 }
-
 ```
 
 ## Going further
