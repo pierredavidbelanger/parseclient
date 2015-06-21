@@ -2,7 +2,9 @@ package ca.pjer.parseclient;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
-import java.lang.reflect.*;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Proxy;
+import java.lang.reflect.Type;
 import java.util.concurrent.Future;
 
 class CloudCodeImpl implements CloudCode {
@@ -45,17 +47,8 @@ class CloudCodeImpl implements CloudCode {
 
 	public <I> I proxy(Class<I> interfaceType) {
 		//noinspection unchecked
-		return (I) Proxy.newProxyInstance(interfaceType.getClassLoader(), new Class[]{interfaceType}, new InvocationHandler() {
-			public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-				String functionName = method.getName();
-				Object namedParameters = args.length > 0 ? args[0] : null;
-				Class resultType = method.getReturnType();
-				FunctionResultImpl functionResult = (FunctionResultImpl) CloudCodeImpl.this.invoke(functionName, namedParameters, resultType);
-				if (functionResult.getError() != null)
-					throw new ParseException(functionResult.getError(), functionResult);
-				return functionResult.getResult();
-			}
-		});
+		return (I) Proxy.newProxyInstance(interfaceType.getClassLoader(),
+				new Class[]{interfaceType}, new FunctionsInvocationHandlerImpl(this));
 	}
 
 	protected <R> GenericType<FunctionResult<R>> getReturnType(final Class<R> resultType) {

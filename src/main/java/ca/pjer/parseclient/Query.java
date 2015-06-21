@@ -2,7 +2,7 @@ package ca.pjer.parseclient;
 
 import java.util.concurrent.Future;
 
-public interface Query<T extends ParseObject> {
+public interface Query<T> {
 
 	Query<T> select(String... keys);
 

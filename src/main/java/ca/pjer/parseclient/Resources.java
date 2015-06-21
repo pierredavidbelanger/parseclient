@@ -2,7 +2,7 @@ package ca.pjer.parseclient;
 
 import java.util.concurrent.Future;
 
-public interface Resources<T extends ParseObject> {
+public interface Resources<T> {
 
 	ParseObjectCreation create(T object);
 

@@ -9,25 +9,6 @@ import java.util.concurrent.Future;
 
 class PerspectiveImpl implements Perspective {
 
-	private static final class ParsePointerImpl<T extends ParseObject> implements ParsePointer<T> {
-
-		private final String className;
-		private final String objectId;
-
-		ParsePointerImpl(String className, String objectId) {
-			this.className = className;
-			this.objectId = objectId;
-		}
-
-		public String getClassName() {
-			return className;
-		}
-
-		public String getObjectId() {
-			return objectId;
-		}
-	}
-
 	private final ApplicationImpl application;
 	private final MultivaluedMap<String, Object> headers;
 
@@ -73,23 +54,23 @@ class PerspectiveImpl implements Perspective {
 
 	public <T extends ParseObject> ParsePointer<T> toPointer(T object) {
 		String className = getApplication().getNameForType(object.getClass());
-		return new ParsePointerImpl<T>(className, object.getObjectId());
+		return new ParsePointer<T>(className, object.getObjectId());
 	}
 
-	public <T extends ParseObject> T fromPointer(ParsePointer<T> pointer) {
+	public <T> T fromPointer(ParsePointer<T> pointer) {
 		return fromPointerOperation(pointer).now();
 	}
 
-	public <T extends ParseObject> Future<T> fromPointerAsync(ParsePointer<T> pointer) {
+	public <T> Future<T> fromPointerAsync(ParsePointer<T> pointer) {
 		return fromPointerOperation(pointer).later();
 	}
 
-	public <T extends ParseObject> Operation<T> fromPointerOperation(ParsePointer<T> pointer) {
+	public <T> Operation<T> fromPointerOperation(ParsePointer<T> pointer) {
 		Class<T> type = getApplication().getTypeForName(pointer.getClassName());
 		return new ObjectResourcesImpl<T>(this, type, pointer.getClassName()).getOperation(pointer.getObjectId());
 	}
 
-	public <T extends ParseObject> ObjectResources<T> withObjects(Class<T> type) {
+	public <T> ObjectResources<T> withObjects(Class<T> type) {
 		String className = getApplication().getNameForType(type);
 		return withObjects(type, className);
 	}
@@ -99,7 +80,7 @@ class PerspectiveImpl implements Perspective {
 		return withObjects(type, className);
 	}
 
-	public <T extends ParseObject> ObjectResources<T> withObjects(Class<T> type, String className) {
+	public <T> ObjectResources<T> withObjects(Class<T> type, String className) {
 		return new ObjectResourcesImpl<T>(this, type, className);
 	}
 
@@ -108,7 +89,7 @@ class PerspectiveImpl implements Perspective {
 		return withUsers(type);
 	}
 
-	public <T extends User> UserResources<T> withUsers(Class<T> type) {
+	public <T> UserResources<T> withUsers(Class<T> type) {
 		return new UserResourcesImpl<T>(this, type);
 	}
 
@@ -117,7 +98,7 @@ class PerspectiveImpl implements Perspective {
 		return withSessions(type);
 	}
 
-	public <T extends Session> SessionResources<T> withSessions(Class<T> type) {
+	public <T> SessionResources<T> withSessions(Class<T> type) {
 		return new SessionResourcesImpl<T>(this, type);
 	}
 

@@ -6,7 +6,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import java.lang.reflect.Type;
 import java.util.concurrent.Future;
 
-abstract class ResourcesImpl<T extends ParseObject> implements Resources<T> {
+abstract class ResourcesImpl<T> implements Resources<T> {
 
 	private final PerspectiveImpl perspective;
 	private final Type type;

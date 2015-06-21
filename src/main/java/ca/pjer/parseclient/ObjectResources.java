@@ -1,4 +1,4 @@
 package ca.pjer.parseclient;
 
-public interface ObjectResources<T extends ParseObject> extends Resources<T> {
+public interface ObjectResources<T> extends Resources<T> {
 }

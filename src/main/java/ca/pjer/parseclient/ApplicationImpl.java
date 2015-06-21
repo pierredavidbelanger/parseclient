@@ -47,7 +47,7 @@ class ApplicationImpl implements Application {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected <T extends ParseObject> Class<T> getTypeForName(String className) {
+	protected <T> Class<T> getTypeForName(String className) {
 		if (nameToType != null && nameToType.containsKey(className))
 			return nameToType.get(className);
 		if (className.equals("_User"))
@@ -79,19 +79,19 @@ class ApplicationImpl implements Application {
 		return clone;
 	}
 
-	public <T extends User> Application registerUserClass(Class<T> type) {
+	public <T> Application registerUserClass(Class<T> type) {
 		return registerObjectClass("_User", type);
 	}
 
-	public <T extends Session> Application registerSessionClass(Class<T> type) {
+	public <T> Application registerSessionClass(Class<T> type) {
 		return registerObjectClass("_Session", type);
 	}
 
-	public <T extends ParseObject> Application registerObjectClass(Class<T> type) {
+	public <T> Application registerObjectClass(Class<T> type) {
 		return registerObjectClass(type.getSimpleName(), type);
 	}
 
-	public <T extends ParseObject> Application registerObjectClass(String className, Class<T> type) {
+	public <T> Application registerObjectClass(String className, Class<T> type) {
 		ApplicationImpl clone = new ApplicationImpl(this);
 		if (clone.nameToType == null) clone.nameToType = new HashMap<String, Class>();
 		if (clone.typeToName == null) clone.typeToName = new HashMap<Class, String>();

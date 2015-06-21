@@ -2,7 +2,7 @@ package ca.pjer.parseclient;
 
 import javax.ws.rs.client.WebTarget;
 
-class ObjectResourcesImpl<T extends ParseObject> extends ResourcesImpl<T> implements ObjectResources<T> {
+class ObjectResourcesImpl<T> extends ResourcesImpl<T> implements ObjectResources<T> {
 
 	private String className;
 

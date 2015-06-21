@@ -3,7 +3,7 @@ package ca.pjer.parseclient;
 import java.util.Iterator;
 import java.util.List;
 
-class QueryResultsImpl<T extends ParseObject> implements QueryResults<T> {
+class QueryResultsImpl<T> implements QueryResults<T> {
 
 	private List<T> results;
 	private Integer count;

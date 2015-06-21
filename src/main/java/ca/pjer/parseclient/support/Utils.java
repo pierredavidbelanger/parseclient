@@ -4,8 +4,21 @@ import javax.ws.rs.core.Configuration;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.ext.MessageBodyReader;
 import javax.ws.rs.ext.MessageBodyWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 public class Utils {
+
+	public static String queryParamSpaceEncoded(String input) {
+		try {
+			// Here be dragons!
+			// This will surely break soon enough.
+			// URLEncoder will encode ' ' as '+', but we want ' ' as '%20'
+			return URLEncoder.encode(input, "UTF-8").replace("+", "%20");
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
 	public static <T extends Object> MessageBodyReader<T> findMessageBodyReader(Configuration configuration, MediaType mediaType) {
 		//noinspection unchecked

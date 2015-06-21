@@ -15,25 +15,25 @@ public interface Perspective {
 
 	<T extends ParseObject> ParsePointer<T> toPointer(T object);
 
-	<T extends ParseObject> T fromPointer(ParsePointer<T> pointer);
+	<T> T fromPointer(ParsePointer<T> pointer);
 
-	<T extends ParseObject> Future<T> fromPointerAsync(ParsePointer<T> pointer);
+	<T> Future<T> fromPointerAsync(ParsePointer<T> pointer);
 
-	<T extends ParseObject> Operation<T> fromPointerOperation(ParsePointer<T> pointer);
+	<T> Operation<T> fromPointerOperation(ParsePointer<T> pointer);
 
-	<T extends ParseObject> ObjectResources<T> withObjects(Class<T> type);
+	<T> ObjectResources<T> withObjects(Class<T> type);
 
 	ObjectResources<ParseObject> withObjects(String className);
 
-	<T extends ParseObject> ObjectResources<T> withObjects(Class<T> type, String className);
+	<T> ObjectResources<T> withObjects(Class<T> type, String className);
 
 	UserResources<User> withUsers();
 
-	<T extends User> UserResources<T> withUsers(Class<T> type);
+	<T> UserResources<T> withUsers(Class<T> type);
 
 	SessionResources<Session> withSessions();
 
-	<T extends Session> SessionResources<T> withSessions(Class<T> type);
+	<T> SessionResources<T> withSessions(Class<T> type);
 
 	CloudCode withCloudCode();
 

@@ -1,17 +1,16 @@
 package ca.pjer.parseclient;
 
+import ca.pjer.parseclient.support.Utils;
 import org.glassfish.jersey.internal.util.collection.ImmutableMultivaluedMap;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
-import java.net.URLEncoder;
 import java.util.Collections;
 import java.util.concurrent.Future;
 
-class UserResourcesImpl<T extends User> extends ResourcesImpl<T> implements UserResources<T> {
+class UserResourcesImpl<T> extends ResourcesImpl<T> implements UserResources<T> {
 
 	UserResourcesImpl(PerspectiveImpl perspective, Type type) {
 		super(perspective, type, "users");
@@ -40,15 +39,15 @@ class UserResourcesImpl<T extends User> extends ResourcesImpl<T> implements User
 	}
 
 	public Operation<T> loginOperation(String username, String password, Boolean useRevocableSession) {
-		try {
-			return new OperationImpl<T>(getWebTarget().path("login")
-					.queryParam(URLEncoder.encode("username", "UTF-8"), URLEncoder.encode(username, "UTF-8"))
-					.queryParam(URLEncoder.encode("password", "UTF-8"), URLEncoder.encode(password, "UTF-8"))
-					.request().headers(getHeaders(useRevocableSession)),
-					OperationImpl.Method.GET, null, getType());
-		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException(e);
-		}
+		return new OperationImpl<T>(getWebTarget().path("login")
+				.queryParam(
+						Utils.queryParamSpaceEncoded("username"),
+						Utils.queryParamSpaceEncoded(username))
+				.queryParam(
+						Utils.queryParamSpaceEncoded("password"),
+						Utils.queryParamSpaceEncoded(password))
+				.request().headers(getHeaders(useRevocableSession)),
+				OperationImpl.Method.GET, null, getType());
 	}
 
 	public void logout() {

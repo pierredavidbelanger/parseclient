@@ -1,9 +1,20 @@
 package ca.pjer.parseclient;
 
-public interface ParsePointer<T extends ParseObject> {
+public class ParsePointer<T> {
 
-	String getClassName();
+	private final String className;
+	private final String objectId;
 
-	String getObjectId();
+	public ParsePointer(String className, String objectId) {
+		this.className = className;
+		this.objectId = objectId;
+	}
 
+	public String getClassName() {
+		return className;
+	}
+
+	public String getObjectId() {
+		return objectId;
+	}
 }

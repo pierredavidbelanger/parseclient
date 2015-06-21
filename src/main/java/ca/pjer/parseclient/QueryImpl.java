@@ -1,5 +1,7 @@
 package ca.pjer.parseclient;
 
+import ca.pjer.parseclient.support.Utils;
+
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
@@ -8,17 +10,15 @@ import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
 
-class QueryImpl<T extends ParseObject> implements Query<T> {
+class QueryImpl<T> implements Query<T> {
 
 	private final ResourcesImpl<T> resources;
 	private final MultivaluedMap<String, String> parameters;
@@ -42,12 +42,11 @@ class QueryImpl<T extends ParseObject> implements Query<T> {
 	}
 
 	public Query<T> constrain(QueryConstraint queryConstraint) {
-		if (queryConstraint instanceof QueryConstraintImpl) {
-			QueryConstraintImpl impl = (QueryConstraintImpl) queryConstraint;
+		if (queryConstraint instanceof Map) {
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			try {
 				resources.getPerspective().getApplication().getParseClient().getMessageBodyWriter()
-						.writeTo(impl.getWhere(), Map.class, null, null,
+						.writeTo(queryConstraint, Map.class, null, null,
 								MediaType.APPLICATION_JSON_TYPE, null, out);
 			} catch (IOException e) {
 				throw new RuntimeException(e);
@@ -120,12 +119,9 @@ class QueryImpl<T extends ParseObject> implements Query<T> {
 			} else {
 				continue;
 			}
-			try {
-				webTarget = webTarget.queryParam(URLEncoder.encode(parameter.getKey(), "UTF-8"),
-						URLEncoder.encode(value, "UTF-8"));
-			} catch (UnsupportedEncodingException e) {
-				throw new RuntimeException(e);
-			}
+			webTarget = webTarget.queryParam(
+					Utils.queryParamSpaceEncoded(parameter.getKey()),
+					Utils.queryParamSpaceEncoded(value));
 		}
 		return webTarget.request().headers(resources.getHeaders());
 	}

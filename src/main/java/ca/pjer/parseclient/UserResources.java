@@ -2,7 +2,7 @@ package ca.pjer.parseclient;
 
 import java.util.concurrent.Future;
 
-public interface UserResources<T extends User> extends Resources<T> {
+public interface UserResources<T> extends Resources<T> {
 
 	UserSignup signup(T user, Boolean useRevocableSession);
 
