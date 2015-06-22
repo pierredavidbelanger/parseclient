@@ -1,14 +1,14 @@
 package ca.pjer.parseclient.support.jackson;
 
 import ca.pjer.parseclient.ParsePointer;
-import ca.pjer.parseclient.User;
+import ca.pjer.parseclient.ParseUser;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
 import java.util.Map;
 
-public interface SessionMixin {
+public interface ParseSessionMixin {
 
 	@JsonIgnore
 	String getSessionToken();
@@ -41,9 +41,9 @@ public interface SessionMixin {
 	void setInstallationId(String installationId);
 
 	@JsonIgnore
-	ParsePointer<User> getUser();
+	ParsePointer<ParseUser> getUser();
 
 	@JsonProperty
-	void setUser(ParsePointer<User> user);
+	void setUser(ParsePointer<ParseUser> user);
 
 }

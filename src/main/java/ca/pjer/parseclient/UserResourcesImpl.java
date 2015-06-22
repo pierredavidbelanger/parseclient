@@ -16,18 +16,18 @@ class UserResourcesImpl<T> extends ResourcesImpl<T> implements UserResources<T> 
 		super(perspective, type, "users");
 	}
 
-	public UserSignup signup(T user, Boolean useRevocableSession) {
+	public ParseUserSignup signup(T user, Boolean useRevocableSession) {
 		return signupOperation(user, useRevocableSession).now();
 	}
 
-	public Future<UserSignup> signupAsync(T user, Boolean useRevocableSession) {
+	public Future<ParseUserSignup> signupAsync(T user, Boolean useRevocableSession) {
 		return signupOperation(user, useRevocableSession).later();
 	}
 
-	public Operation<UserSignup> signupOperation(T user, Boolean useRevocableSession) {
-		return new OperationImpl<UserSignup>(getResourceWebTarget().request()
+	public Operation<ParseUserSignup> signupOperation(T user, Boolean useRevocableSession) {
+		return new OperationImpl<ParseUserSignup>(getResourceWebTarget().request()
 				.headers(getHeaders(useRevocableSession)), OperationImpl.Method.POST,
-				Entity.json(user), User.class);
+				Entity.json(user), ParseUser.class);
 	}
 
 	public T login(String username, String password, Boolean useRevocableSession) {

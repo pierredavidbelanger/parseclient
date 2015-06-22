@@ -84,8 +84,8 @@ class PerspectiveImpl implements Perspective {
 		return new ObjectResourcesImpl<T>(this, type, className);
 	}
 
-	public UserResources<User> withUsers() {
-		Class<User> type = getApplication().getTypeForName("_User");
+	public UserResources<ParseUser> withUsers() {
+		Class<ParseUser> type = getApplication().getTypeForName("_User");
 		return withUsers(type);
 	}
 
@@ -93,8 +93,8 @@ class PerspectiveImpl implements Perspective {
 		return new UserResourcesImpl<T>(this, type);
 	}
 
-	public SessionResources<Session> withSessions() {
-		Class<Session> type = getApplication().getTypeForName("_Session");
+	public SessionResources<ParseSession> withSessions() {
+		Class<ParseSession> type = getApplication().getTypeForName("_Session");
 		return withSessions(type);
 	}
 

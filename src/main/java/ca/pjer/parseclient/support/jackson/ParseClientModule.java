@@ -30,7 +30,7 @@ public class ParseClientModule extends Module {
 		setupContext.setMixInAnnotations(ParseObjectHeader.class, ParseObjectHeaderMixin.class);
 		setupContext.setMixInAnnotations(ParseObject.class, ParseObjectMixin.class);
 		setupContext.setMixInAnnotations(ParseACL.class, ParseACLMixin.class);
-		setupContext.setMixInAnnotations(Session.class, SessionMixin.class);
+		setupContext.setMixInAnnotations(ParseSession.class, ParseSessionMixin.class);
 
 		SimpleSerializers serializers = new SimpleSerializers();
 		serializers.addSerializer(new StdDelegatingSerializer(ParseDate.class, new ParseDateToMapConverter()));

@@ -51,18 +51,18 @@ class ApplicationImpl implements Application {
 		if (nameToType != null && nameToType.containsKey(className))
 			return nameToType.get(className);
 		if (className.equals("_User"))
-			return (Class<T>) User.class;
+			return (Class<T>) ParseUser.class;
 		else if (className.equals("_Session"))
-			return (Class<T>) Session.class;
+			return (Class<T>) ParseSession.class;
 		return (Class<T>) ParseObject.class;
 	}
 
 	protected String getNameForType(Class type) {
 		if (typeToName != null && typeToName.containsKey(type))
 			return typeToName.get(type);
-		if (User.class.isAssignableFrom(type))
+		if (ParseUser.class.isAssignableFrom(type))
 			return "_User";
-		if (Session.class.isAssignableFrom(type))
+		if (ParseSession.class.isAssignableFrom(type))
 			return "_Session";
 		return type.getSimpleName();
 	}

@@ -1,6 +1,6 @@
 package ca.pjer.parseclient;
 
-public class User extends ParseObject implements UserSignup {
+public class ParseUser extends ParseObject implements ParseUserSignup {
 
 	private String username;
 	private String password;

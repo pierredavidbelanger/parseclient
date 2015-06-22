@@ -4,11 +4,11 @@ import java.util.concurrent.Future;
 
 public interface UserResources<T> extends Resources<T> {
 
-	UserSignup signup(T user, Boolean useRevocableSession);
+	ParseUserSignup signup(T user, Boolean useRevocableSession);
 
-	Future<UserSignup> signupAsync(T user, Boolean useRevocableSession);
+	Future<ParseUserSignup> signupAsync(T user, Boolean useRevocableSession);
 
-	Operation<UserSignup> signupOperation(T user, Boolean useRevocableSession);
+	Operation<ParseUserSignup> signupOperation(T user, Boolean useRevocableSession);
 
 	T login(String username, String password, Boolean useRevocableSession);
 

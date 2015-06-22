@@ -27,11 +27,11 @@ public interface Perspective {
 
 	<T> ObjectResources<T> withObjects(Class<T> type, String className);
 
-	UserResources<User> withUsers();
+	UserResources<ParseUser> withUsers();
 
 	<T> UserResources<T> withUsers(Class<T> type);
 
-	SessionResources<Session> withSessions();
+	SessionResources<ParseSession> withSessions();
 
 	<T> SessionResources<T> withSessions(Class<T> type);
 

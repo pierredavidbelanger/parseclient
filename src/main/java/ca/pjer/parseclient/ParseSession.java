@@ -3,14 +3,14 @@ package ca.pjer.parseclient;
 import java.util.Date;
 import java.util.Map;
 
-public class Session extends ParseObject implements UserSignup {
+public class ParseSession extends ParseObject implements ParseUserSignup {
 
 	private String sessionToken;
 	private Map<String, Object> createdWith;
 	private Boolean restricted;
 	private Date expiresAt;
 	private String installationId;
-	private ParsePointer<User> user;
+	private ParsePointer<ParseUser> user;
 
 	public String getSessionToken() {
 		return sessionToken;
@@ -52,11 +52,11 @@ public class Session extends ParseObject implements UserSignup {
 		this.installationId = installationId;
 	}
 
-	public ParsePointer<User> getUser() {
+	public ParsePointer<ParseUser> getUser() {
 		return user;
 	}
 
-	void setUser(ParsePointer<User> user) {
+	void setUser(ParsePointer<ParseUser> user) {
 		this.user = user;
 	}
 }
