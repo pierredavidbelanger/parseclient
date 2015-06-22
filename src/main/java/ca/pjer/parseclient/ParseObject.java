@@ -33,6 +33,10 @@ public class ParseObject extends ParseObjectHeader {
 		setFieldOperation(key, "Increment", "amount", amount);
 	}
 
+	public void fieldDelete(String key) {
+		setFieldOperation(key, "Delete", null, null);
+	}
+
 	public void arrayAdd(String key, Object... objects) {
 		setFieldOperation(key, "Add", "objects", Arrays.asList(objects));
 	}
@@ -66,19 +70,21 @@ public class ParseObject extends ParseObjectHeader {
 			//noinspection unchecked
 			op = (Map<String, Object>) currentOp;
 		}
-		Object currentArgValue = op.get(argName);
-		if (currentArgValue instanceof List && argValue instanceof List) {
-			List argList = (List) currentArgValue;
-			argList = new ArrayList<Object>(argList);
-			//noinspection unchecked
-			argList.addAll((List) argValue);
-			op.put(argName, argList);
-		} else if (currentArgValue instanceof Number && argValue instanceof Number) {
-			Number argNumber = (Number) currentArgValue;
-			argNumber = argNumber.doubleValue() + ((Number) argValue).doubleValue();
-			op.put(argName, argNumber);
-		} else {
-			op.put(argName, argValue);
+		if (argName != null) {
+			Object currentArgValue = op.get(argName);
+			if (currentArgValue instanceof List && argValue instanceof List) {
+				List argList = (List) currentArgValue;
+				argList = new ArrayList<Object>(argList);
+				//noinspection unchecked
+				argList.addAll((List) argValue);
+				op.put(argName, argList);
+			} else if (currentArgValue instanceof Number && argValue instanceof Number) {
+				Number argNumber = (Number) currentArgValue;
+				argNumber = argNumber.doubleValue() + ((Number) argValue).doubleValue();
+				op.put(argName, argNumber);
+			} else {
+				op.put(argName, argValue);
+			}
 		}
 		set(key, op);
 	}
