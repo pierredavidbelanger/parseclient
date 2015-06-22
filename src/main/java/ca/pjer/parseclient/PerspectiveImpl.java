@@ -52,32 +52,12 @@ class PerspectiveImpl implements Perspective {
 		return null;
 	}
 
-	public <T extends ParseObject> ParsePointer<T> toPointer(T object) {
-		String className = getApplication().getNameForType(object.getClass());
-		return new ParsePointer<T>(className, object.getObjectId());
-	}
-
-	public <T> T fromPointer(ParsePointer<T> pointer) {
-		return fromPointerOperation(pointer).now();
-	}
-
-	public <T> Future<T> fromPointerAsync(ParsePointer<T> pointer) {
-		return fromPointerOperation(pointer).later();
-	}
-
-	public <T> Operation<T> fromPointerOperation(ParsePointer<T> pointer) {
-		Class<T> type = getApplication().getTypeForName(pointer.getClassName());
-		return new ObjectResourcesImpl<T>(this, type, pointer.getClassName()).getOperation(pointer.getObjectId());
-	}
-
 	public <T> ObjectResources<T> withObjects(Class<T> type) {
-		String className = getApplication().getNameForType(type);
-		return withObjects(type, className);
+		return withObjects(type, type.getSimpleName());
 	}
 
 	public ObjectResources<ParseObject> withObjects(String className) {
-		Class<ParseObject> type = getApplication().getTypeForName(className);
-		return withObjects(type, className);
+		return withObjects(ParseObject.class, className);
 	}
 
 	public <T> ObjectResources<T> withObjects(Class<T> type, String className) {
@@ -85,8 +65,7 @@ class PerspectiveImpl implements Perspective {
 	}
 
 	public UserResources<ParseUser> withUsers() {
-		Class<ParseUser> type = getApplication().getTypeForName("_User");
-		return withUsers(type);
+		return withUsers(ParseUser.class);
 	}
 
 	public <T> UserResources<T> withUsers(Class<T> type) {
@@ -94,12 +73,19 @@ class PerspectiveImpl implements Perspective {
 	}
 
 	public SessionResources<ParseSession> withSessions() {
-		Class<ParseSession> type = getApplication().getTypeForName("_Session");
-		return withSessions(type);
+		return withSessions(ParseSession.class);
 	}
 
 	public <T> SessionResources<T> withSessions(Class<T> type) {
 		return new SessionResourcesImpl<T>(this, type);
+	}
+
+	public RoleResources<ParseRole> withRoles() {
+		return withRoles(ParseRole.class);
+	}
+
+	public <T> RoleResources<T> withRoles(Class<T> type) {
+		return new RoleResourcesImpl<T>(this, type);
 	}
 
 	public CloudCode withCloudCode() {

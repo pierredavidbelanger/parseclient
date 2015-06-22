@@ -4,8 +4,6 @@ import org.glassfish.jersey.internal.util.collection.ImmutableMultivaluedMap;
 
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
-import java.util.HashMap;
-import java.util.Map;
 
 class ApplicationImpl implements Application {
 
@@ -13,8 +11,6 @@ class ApplicationImpl implements Application {
 	private final String applicationId;
 	private String restApiKey;
 	private String masterKey;
-	private Map<String, Class> nameToType;
-	private Map<Class, String> typeToName;
 
 	ApplicationImpl(ParseClientImpl parseClient, String applicationId) {
 		this.parseClient = parseClient;
@@ -26,8 +22,6 @@ class ApplicationImpl implements Application {
 		applicationId = that.applicationId;
 		restApiKey = that.restApiKey;
 		masterKey = that.masterKey;
-		nameToType = that.nameToType;
-		typeToName = that.typeToName;
 	}
 
 	protected ParseClientImpl getParseClient() {
@@ -46,27 +40,6 @@ class ApplicationImpl implements Application {
 		return masterKey;
 	}
 
-	@SuppressWarnings("unchecked")
-	protected <T> Class<T> getTypeForName(String className) {
-		if (nameToType != null && nameToType.containsKey(className))
-			return nameToType.get(className);
-		if (className.equals("_User"))
-			return (Class<T>) ParseUser.class;
-		else if (className.equals("_Session"))
-			return (Class<T>) ParseSession.class;
-		return (Class<T>) ParseObject.class;
-	}
-
-	protected String getNameForType(Class type) {
-		if (typeToName != null && typeToName.containsKey(type))
-			return typeToName.get(type);
-		if (ParseUser.class.isAssignableFrom(type))
-			return "_User";
-		if (ParseSession.class.isAssignableFrom(type))
-			return "_Session";
-		return type.getSimpleName();
-	}
-
 	public Application usingRestApiKey(String restApiKey) {
 		ApplicationImpl clone = new ApplicationImpl(this);
 		clone.restApiKey = restApiKey;
@@ -76,27 +49,6 @@ class ApplicationImpl implements Application {
 	public Application usingMasterKey(String masterKey) {
 		ApplicationImpl clone = new ApplicationImpl(this);
 		clone.masterKey = masterKey;
-		return clone;
-	}
-
-	public <T> Application registerUserClass(Class<T> type) {
-		return registerObjectClass("_User", type);
-	}
-
-	public <T> Application registerSessionClass(Class<T> type) {
-		return registerObjectClass("_Session", type);
-	}
-
-	public <T> Application registerObjectClass(Class<T> type) {
-		return registerObjectClass(type.getSimpleName(), type);
-	}
-
-	public <T> Application registerObjectClass(String className, Class<T> type) {
-		ApplicationImpl clone = new ApplicationImpl(this);
-		if (clone.nameToType == null) clone.nameToType = new HashMap<String, Class>();
-		if (clone.typeToName == null) clone.typeToName = new HashMap<Class, String>();
-		clone.nameToType.put(className, type);
-		clone.typeToName.put(type, className);
 		return clone;
 	}
 

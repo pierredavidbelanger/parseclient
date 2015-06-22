@@ -45,6 +45,14 @@ public class ParseObject extends ParseObjectHeader {
 		setFieldOperation(key, "Remove", "objects", Arrays.asList(objects));
 	}
 
+	public void relationAdd(String key, ParsePointer... pointers) {
+		setFieldOperation(key, "AddRelation", "objects", Arrays.asList(pointers));
+	}
+
+	public void relationRemove(String key, ParsePointer... pointers) {
+		setFieldOperation(key, "RemoveRelation", "objects", Arrays.asList(pointers));
+	}
+
 	protected void setFieldOperation(String key, String opName, String argName, Object argValue) {
 		Map<String, Object> op;
 		Object currentOp = get(key);

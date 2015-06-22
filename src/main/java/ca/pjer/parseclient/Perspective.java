@@ -13,14 +13,6 @@ public interface Perspective {
 
 	Operation<List<BatchResult>> endBatchOperation(Batch batch);
 
-	<T extends ParseObject> ParsePointer<T> toPointer(T object);
-
-	<T> T fromPointer(ParsePointer<T> pointer);
-
-	<T> Future<T> fromPointerAsync(ParsePointer<T> pointer);
-
-	<T> Operation<T> fromPointerOperation(ParsePointer<T> pointer);
-
 	<T> ObjectResources<T> withObjects(Class<T> type);
 
 	ObjectResources<ParseObject> withObjects(String className);
@@ -34,6 +26,10 @@ public interface Perspective {
 	SessionResources<ParseSession> withSessions();
 
 	<T> SessionResources<T> withSessions(Class<T> type);
+
+	RoleResources<ParseRole> withRoles();
+
+	<T> RoleResources<T> withRoles(Class<T> type);
 
 	CloudCode withCloudCode();
 

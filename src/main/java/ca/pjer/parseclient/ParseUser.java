@@ -7,6 +7,15 @@ public class ParseUser extends ParseObject implements ParseUserSignup {
 	private String email;
 	private String sessionToken;
 
+	public ParseUser() {
+	}
+
+	public ParseUser(String username, String password, String email) {
+		this.username = username;
+		this.password = password;
+		this.email = email;
+	}
+
 	public String getUsername() {
 		return username;
 	}
