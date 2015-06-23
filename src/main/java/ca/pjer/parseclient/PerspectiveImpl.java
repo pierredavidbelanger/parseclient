@@ -88,6 +88,10 @@ class PerspectiveImpl implements Perspective {
 		return new RoleResourcesImpl<T>(this, type);
 	}
 
+	public FileResources withFiles() {
+		return new FileResourcesImpl(this);
+	}
+
 	public CloudCode withCloudCode() {
 		return new CloudCodeImpl(this);
 	}

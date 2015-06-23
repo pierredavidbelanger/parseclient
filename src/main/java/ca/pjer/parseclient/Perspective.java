@@ -31,6 +31,8 @@ public interface Perspective {
 
 	<T> RoleResources<T> withRoles(Class<T> type);
 
+	FileResources withFiles();
+
 	CloudCode withCloudCode();
 
 }

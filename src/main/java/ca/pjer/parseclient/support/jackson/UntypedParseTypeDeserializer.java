@@ -1,6 +1,7 @@
 package ca.pjer.parseclient.support.jackson;
 
 import ca.pjer.parseclient.ParseDate;
+import ca.pjer.parseclient.ParseFile;
 import ca.pjer.parseclient.ParseGeoPoint;
 import ca.pjer.parseclient.ParsePointer;
 import com.fasterxml.jackson.core.JsonParser;
@@ -30,6 +31,8 @@ public class UntypedParseTypeDeserializer extends UntypedObjectDeserializer {
 			if (__type != null) {
 				if (__type.equals("Date")) {
 					return codec.treeToValue(treeNode, ParseDate.class);
+				} else if (__type.equals("File")) {
+					return codec.treeToValue(treeNode, ParseFile.class);
 				} else if (__type.equals("GeoPoint")) {
 					return codec.treeToValue(treeNode, ParseGeoPoint.class);
 				} else if (__type.equals("Pointer")) {

@@ -34,6 +34,7 @@ public class ParseClientModule extends Module {
 
 		SimpleSerializers serializers = new SimpleSerializers();
 		serializers.addSerializer(new StdDelegatingSerializer(ParseDate.class, new ParseDateToMapConverter()));
+		serializers.addSerializer(new StdDelegatingSerializer(ParseFile.class, new ParseFileToMapConverter()));
 		serializers.addSerializer(new StdDelegatingSerializer(ParseGeoPoint.class, new ParseGeoPointToMapConverter()));
 		serializers.addSerializer(new StdDelegatingSerializer(ParsePointer.class, new ParsePointerToMapConverter()));
 		setupContext.addSerializers(serializers);
@@ -41,6 +42,7 @@ public class ParseClientModule extends Module {
 		SimpleDeserializers deserializers = new SimpleDeserializers();
 		deserializers.addDeserializer(Object.class, new UntypedParseTypeDeserializer(setupContext.getOwner()));
 		deserializers.addDeserializer(ParseDate.class, new StdDelegatingDeserializer<ParseDate>(new ParseDateFromMapConverter()));
+		deserializers.addDeserializer(ParseFile.class, new StdDelegatingDeserializer<ParseFile>(new ParseFileFromMapConverter()));
 		deserializers.addDeserializer(ParseGeoPoint.class, new StdDelegatingDeserializer<ParseGeoPoint>(new ParseGeoPointFromMapConverter()));
 		deserializers.addDeserializer(ParsePointer.class, new StdDelegatingDeserializer<ParsePointer>(new ParsePointerFromMapConverter()));
 		setupContext.addDeserializers(deserializers);
