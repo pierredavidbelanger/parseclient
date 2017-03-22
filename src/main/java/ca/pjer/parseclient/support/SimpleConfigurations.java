@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.ClientProperties;
-import org.glassfish.jersey.filter.LoggingFilter;
+import org.glassfish.jersey.logging.LoggingFeature;
 
 import javax.ws.rs.core.Configuration;
 import java.util.logging.Level;
@@ -35,7 +35,8 @@ public class SimpleConfigurations {
 
 		Logger logger = Logger.getLogger("ca.pjer.parseclient");
 		if (logger.isLoggable(Level.INFO))
-			clientConfig.register(new LoggingFilter(logger, true));
+			clientConfig.register(new LoggingFeature(logger, Level.INFO,
+					LoggingFeature.DEFAULT_VERBOSITY, LoggingFeature.DEFAULT_MAX_ENTITY_SIZE));
 
 		return clientConfig;
 	}
