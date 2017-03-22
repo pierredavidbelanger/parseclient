@@ -120,6 +120,6 @@ abstract class ResourcesImpl<T> implements Resources<T> {
 	}
 
 	protected String getBatchPath() {
-		return "/1/" + getResourcePath();
+		return getPerspective().getWebTarget().getUri().getPath() + "/" + getResourcePath();
 	}
 }
