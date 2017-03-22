@@ -22,7 +22,7 @@ First include this library into the `<dependencies/>` section of you pom.xml:
 <dependency>
     <groupId>ca.pjer</groupId>
     <artifactId>parseclient</artifactId>
-    <version>0.8.0-SNAPSHOT</version>
+    <version>0.9.0-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -59,14 +59,14 @@ Again in the `<dependencies/>` section of your pom.xml:
 <dependency>
     <groupId>org.glassfish.jersey.core</groupId>
     <artifactId>jersey-client</artifactId>
-    <version>2.18</version>
+    <version>2.25.1</version>
     <scope>runtime</scope>
 </dependency>
 
 <dependency>
     <groupId>org.glassfish.jersey.media</groupId>
     <artifactId>jersey-media-json-jackson</artifactId>
-    <version>2.18</version>
+    <version>2.25.1</version>
     <scope>runtime</scope>
 </dependency>
 ```
@@ -80,13 +80,13 @@ Client client = ClientBuilder.newClient(SimpleConfigurations.jerseyWithJackson()
 
 ```
 
-Create a ParseClient that wrap this JAX-RS `client`:
+Create a ParseClient that wrap this JAX-RS `client` and point where your [Parse Server](https://github.com/ParsePlatform/parse-server) is:
  
 ```java
-ParseClient parseClient = ParseClient.create(client);
+ParseClient parseClient = ParseClient.create(client, URI.create("http://localhost:1337/parse"));
 ```
 
-From the `parseClient`, create an object to access an application by providing your `Application ID` and `REST API Key` (in the Settings -> Keys section of your [Parse.com](https://www.parse.com) dashboard):
+From the `parseClient`, create an object to access an application by providing your [Application ID](https://github.com/ParsePlatform/parse-server#basic-options) and [REST API Key](https://github.com/ParsePlatform/parse-server#client-key-options):
  
 ```java
 Application application = parseClient.application("...").usingRestApiKey("...");
@@ -129,7 +129,7 @@ public class Main {
 
 		Client client = ClientBuilder.newClient(SimpleConfigurations.jerseyWithJackson());
 
-		ParseClient parseClient = ParseClient.create(client);
+		ParseClient parseClient = ParseClient.create(client, URI.create("http://localhost:1337/parse"));
 
 		Application application = parseClient.application("...").usingRestApiKey("...");
 
@@ -147,5 +147,3 @@ public class Main {
 ## Going further
 
 There is more than that. This library already supports aynchrounous operations, replayable operations, CloudCode Functions, signup, login, users and sessions management, ACL, batch operations, Pointer, GeoPoint, File, Queries, custom POJO mapping.
-
-Expect more documentation to come.
