@@ -16,6 +16,12 @@ If you are looking for something easier to use, have a look at the excellent als
 
 ## Getting Started
 
+### With Spring Boot
+
+If you are using Spring Boot, have a look at [parse-spring-boot](https://github.com/pierredavidbelanger/parse-spring-boot) to get started real quick!
+
+### Without Spring Boot
+
 First include this library into the `<dependencies/>` section of you pom.xml:
 
 ```xml
