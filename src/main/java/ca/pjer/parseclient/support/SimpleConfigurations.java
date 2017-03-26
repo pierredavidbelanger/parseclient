@@ -34,8 +34,8 @@ public class SimpleConfigurations {
 		clientConfig.register(new ParseClientWithErrorResponseFilter());
 
 		Logger logger = Logger.getLogger("ca.pjer.parseclient");
-		if (logger.isLoggable(Level.INFO))
-			clientConfig.register(new LoggingFeature(logger, Level.INFO,
+		if (logger.isLoggable(Level.FINEST))
+			clientConfig.register(new LoggingFeature(logger, Level.FINEST,
 					LoggingFeature.DEFAULT_VERBOSITY, LoggingFeature.DEFAULT_MAX_ENTITY_SIZE));
 
 		return clientConfig;
