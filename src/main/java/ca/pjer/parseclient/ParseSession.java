@@ -8,7 +8,7 @@ public class ParseSession extends ParseObject implements ParseUserSignup {
 	private String sessionToken;
 	private Map<String, Object> createdWith;
 	private Boolean restricted;
-	private Date expiresAt;
+	private ParseDate expiresAt;
 	private String installationId;
 	private ParsePointer<ParseUser> user;
 
@@ -36,11 +36,11 @@ public class ParseSession extends ParseObject implements ParseUserSignup {
 		this.restricted = restricted;
 	}
 
-	public Date getExpiresAt() {
+	public ParseDate getExpiresAt() {
 		return expiresAt;
 	}
 
-	void setExpiresAt(Date expiresAt) {
+	void setExpiresAt(ParseDate expiresAt) {
 		this.expiresAt = expiresAt;
 	}
 
