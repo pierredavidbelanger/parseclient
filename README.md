@@ -28,7 +28,7 @@ First include this library into the `<dependencies/>` section of you pom.xml:
 <dependency>
     <groupId>ca.pjer</groupId>
     <artifactId>parseclient</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
